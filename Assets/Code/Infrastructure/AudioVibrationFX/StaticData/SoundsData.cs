@@ -1,0 +1,13 @@
+using System.Collections.Generic;
+using Sirenix.OdinInspector;
+using UnityEngine;
+
+namespace Code.Infrastructure.AudioVibrationFX.StaticData
+{
+    [CreateAssetMenu(fileName = "SoundData", menuName = "StaticData/SoundsData")]
+    public class SoundsData : SerializedScriptableObject
+    { 
+        public List<SoundData> Sounds2DData = new();
+        public List<SoundData> Sounds3DData = new();
+    }
+}

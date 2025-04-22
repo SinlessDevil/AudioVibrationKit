@@ -1,0 +1,23 @@
+using System;
+using UnityEngine;
+using UnityEngine.Serialization;
+
+namespace Code.Infrastructure.AudioVibrationFX.StaticData
+{
+    [Serializable]
+    public class SoundData
+    {
+        public string Name;
+            
+        public AudioClip Clip;
+
+        [Range(0f, 1f)] public float Volume = 1f;
+        [Range(0f, 1f)] public float SpatialBlend = 0f; // 0 = 2D, 1 = 3D
+        public bool Loop = false;
+        public bool PlayOnAwake = false;
+
+        public AudioRolloffMode RolloffMode = AudioRolloffMode.Linear;
+        public float MinDistance = 1f;
+        public float MaxDistance = 500f;
+    }
+}
