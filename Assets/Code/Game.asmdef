@@ -2,7 +2,10 @@
     "name": "Game",
     "rootNamespace": "",
     "references": [
-        "Zenject"
+        "Zenject",
+        "MoreMountains.NiceVibrations",
+        "MoreMountains.NiceVibrations.Haptics",
+        "MoreMountains.NiceVibrations.Rumble"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
