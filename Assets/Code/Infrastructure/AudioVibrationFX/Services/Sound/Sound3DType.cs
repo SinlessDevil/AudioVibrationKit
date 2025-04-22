@@ -7,5 +7,6 @@ namespace Code.Infrastructure.AudioVibrationFX.Services.Sound
     {
         Explosion = 0,
         Explosion_1 = 1,
+        Gun_Hit = 2,
     }
 }

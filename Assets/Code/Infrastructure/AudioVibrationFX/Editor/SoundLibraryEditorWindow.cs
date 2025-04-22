@@ -2,15 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Code.Infrastructure.AudioVibrationFX.Services.Sound;
+using Code.Infrastructure.AudioVibrationFX.StaticData;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using UnityEditor;
 using UnityEngine;
-using Code.Infrastructure.AudioVibrationFX.StaticData;
-using Code.Infrastructure.AudioVibrationFX.Services.Sound;
-using UnityEngine.Serialization;
 
-namespace Code
+namespace Code.Infrastructure.AudioVibrationFX.Editor
 {
     public class SoundLibraryEditorWindow : OdinEditorWindow
     {
@@ -32,13 +31,23 @@ namespace Code
 
         [BoxGroup("2D Sounds")]
         [ShowInInspector, Searchable]
-        [ListDrawerSettings(Expanded = true, DraggableItems = true, ShowPaging = true)]
-        private List<SoundData> _sounds2DData => soundsData != null ? soundsData.Sounds2DData : new List<SoundData>();
+        [ListDrawerSettings(
+            Expanded = true,
+            DraggableItems = true,
+            ShowPaging = true,
+            ListElementLabelName = "Name"
+        )]
+        private List<SoundData> _sounds2DDataEditable;
 
         [BoxGroup("3D Sounds")]
         [ShowInInspector, Searchable]
-        [ListDrawerSettings(Expanded = true, DraggableItems = true, ShowPaging = true)]
-        private List<SoundData> _sounds3DData => soundsData != null ? soundsData.Sounds3DData : new List<SoundData>();
+        [ListDrawerSettings(
+            Expanded = true,
+            DraggableItems = true,
+            ShowPaging = true,
+            ListElementLabelName = "Name"
+        )]
+        private List<SoundData> _sounds3DDataEditable;
 
         private SoundsData soundsData;
 
@@ -47,8 +56,8 @@ namespace Code
         [GUIColor(0f, 1f, 0f)]
         private void GenerateEnums()
         {
-            GenerateEnumFile("Sound2DType.cs", "Sound2DType", _sounds2DData);
-            GenerateEnumFile("Sound3DType.cs", "Sound3DType", _sounds3DData);
+            GenerateEnumFile("Sound2DType.cs", "Sound2DType", _sounds2DDataEditable);
+            GenerateEnumFile("Sound3DType.cs", "Sound3DType", _sounds3DDataEditable);
             AssetDatabase.Refresh();
         }
 
@@ -95,6 +104,9 @@ namespace Code
                 Debug.LogError("SoundsData asset not found at Resources/StaticData/Sounds/Sounds.asset");
                 soundsData = CreateInstance<SoundsData>();
             }
+
+            _sounds2DDataEditable = soundsData.Sounds2DData;
+            _sounds3DDataEditable = soundsData.Sounds3DData;
 
             _current2DTypes = GetEnumValues(typeof(Sound2DType));
             _current3DTypes = GetEnumValues(typeof(Sound3DType));
