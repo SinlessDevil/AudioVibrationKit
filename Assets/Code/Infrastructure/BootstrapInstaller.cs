@@ -1,3 +1,5 @@
+using Code.Infrastructure.AudioVibrationFX.Services.Sound;
+using Code.Infrastructure.AudioVibrationFX.Services.StaticData;
 using Code.Infrastructure.Factory;
 using Code.Infrastructure.Services.PersistenceProgress;
 using Code.Infrastructure.Services.SaveLoad;
@@ -20,6 +22,7 @@ namespace Code.Infrastructure
             BindSaveLoad();
             BindProgressData();
             BindStaticData();
+            BindAudioVibration();
         }
 
         private void BindFactory()
@@ -39,11 +42,21 @@ namespace Code.Infrastructure
         private void BindStaticData()
         {
             Container.Bind<IStaticDataService>().To<StaticDataService>().AsSingle();
+            Container.Bind<IAudioVibrationStaticDataService>().To<AudioVibrationStaticDataService>().AsSingle();
+        }
+        
+        private void BindAudioVibration()
+        {
+            Container.Bind<ISoundService>().To<SoundService>().AsSingle();
         }
         
         public void Initialize()
         {
             Container.Resolve<IStaticDataService>().LoadData();
+            Container.Resolve<IAudioVibrationStaticDataService>().LoadData();
+            
+            Container.Resolve<ISoundService>().Cache2DSounds();
+            Container.Resolve<ISoundService>().CreateSoundsPool();
             
             SceneManager.LoadScene(SceneName);
         }
