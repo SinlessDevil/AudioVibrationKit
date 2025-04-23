@@ -22,8 +22,36 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   Sounds2DData:
-  - Name: 
+  - Name: Click_1
     Clip: {fileID: 8300000, guid: 8849396b31accba45a1f70ee86835367, type: 3}
+    Volume: 1
+    SpatialBlend: 0
+    Loop: 0
+    PlayOnAwake: 0
+    RolloffMode: 1
+    MinDistance: 1
+    MaxDistance: 500
+  - Name: Click_2
+    Clip: {fileID: 8300000, guid: 8cf72f56ae4e19e49b4f564b06494484, type: 3}
+    Volume: 1
+    SpatialBlend: 0
+    Loop: 0
+    PlayOnAwake: 0
+    RolloffMode: 1
+    MinDistance: 1
+    MaxDistance: 500
+  Sounds3DData:
+  - Name: Hit
+    Clip: {fileID: 8300000, guid: fe4ff8cf031a06741909ee7633ca3556, type: 3}
+    Volume: 1
+    SpatialBlend: 0
+    Loop: 0
+    PlayOnAwake: 0
+    RolloffMode: 1
+    MinDistance: 1
+    MaxDistance: 500
+  - Name: Hit_1
+    Clip: {fileID: 8300000, guid: afd7ef4de85726f4494c70fac7cc98d4, type: 3}
     Volume: 1
     SpatialBlend: 0
     Loop: 0

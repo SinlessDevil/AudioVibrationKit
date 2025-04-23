@@ -58,6 +58,8 @@ namespace Code.Infrastructure.AudioVibrationFX.Editor
         {
             GenerateEnumFile("Sound2DType.cs", "Sound2DType", _sounds2DDataEditable);
             GenerateEnumFile("Sound3DType.cs", "Sound3DType", _sounds3DDataEditable);
+            SaveSoundsData();
+            AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
         }
 
@@ -88,30 +90,48 @@ namespace Code.Infrastructure.AudioVibrationFX.Editor
                 writer.WriteLine("    }");
                 writer.WriteLine("}");
             }
-
-            AssetDatabase.Refresh();
             Debug.Log($"{enumName} enum generated successfully with values!");
         }
-
+        
         protected override void OnEnable()
         {
             base.OnEnable();
 
-            soundsData = Resources.Load<SoundsData>("StaticData/Sounds/Sounds");
+            var loaded = Resources.Load<SoundsData>("StaticData/Sounds/Sounds");
 
-            if (soundsData == null)
+            if (loaded != null)
             {
-                Debug.LogError("SoundsData asset not found at Resources/StaticData/Sounds/Sounds.asset");
-                soundsData = CreateInstance<SoundsData>();
+                soundsData = loaded;
+                _sounds2DDataEditable = soundsData.Sounds2DData;
+                _sounds3DDataEditable = soundsData.Sounds3DData;
             }
-
-            _sounds2DDataEditable = soundsData.Sounds2DData;
-            _sounds3DDataEditable = soundsData.Sounds3DData;
+            else
+            {
+                Debug.LogError("❌ SoundsData asset not found at Resources/StaticData/Sounds/Sounds.asset");
+                _sounds2DDataEditable = new List<SoundData>();
+                _sounds3DDataEditable = new List<SoundData>();
+            }
 
             _current2DTypes = GetEnumValues(typeof(Sound2DType));
             _current3DTypes = GetEnumValues(typeof(Sound3DType));
         }
 
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            SaveSoundsData();
+        }
+        
+        private void SaveSoundsData()
+        {
+            if (soundsData != null)
+            {
+                EditorUtility.SetDirty(soundsData);
+            }
+        }
+
+        
         private string GetEnumValues(Type enumType)
         {
             return string.Join(", ", Enum.GetNames(enumType));
