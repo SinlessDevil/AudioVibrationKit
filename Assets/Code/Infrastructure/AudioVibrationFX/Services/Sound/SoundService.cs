@@ -19,6 +19,8 @@ namespace Code.Infrastructure.AudioVibrationFX.Services.Sound
         private Transform _poolParent2D;
         private Transform _poolParent3D;
 
+        private float _globalVolume = 1f;
+        
         public SoundService(IAudioVibrationStaticDataService audioVibrationStaticDataService)
         {
             _audioVibrationStaticDataService = audioVibrationStaticDataService;
@@ -84,6 +86,19 @@ namespace Code.Infrastructure.AudioVibrationFX.Services.Sound
             Setup3DSource(source, data, position);
             source.Play();
         }
+
+        public void SetGlobalVolume(float volume)
+        {
+            _globalVolume = Mathf.Clamp01(volume);
+
+            foreach (var src in _2dAudioPool)
+                src.volume = _globalVolume;
+
+            foreach (var src in _3dAudioPool)
+                src.volume = _globalVolume;
+        }
+
+        public float GetGlobalVolume() => _globalVolume;
         
         private Transform CreatePoolParent(string name)
         {
@@ -129,7 +144,7 @@ namespace Code.Infrastructure.AudioVibrationFX.Services.Sound
         private void SetupSource(AudioSource source, SoundData data)
         {
             source.clip = data.Clip;
-            source.volume = data.Volume;
+            source.volume = data.Volume * _globalVolume;
             source.loop = data.Loop;
             source.playOnAwake = data.PlayOnAwake;
         }

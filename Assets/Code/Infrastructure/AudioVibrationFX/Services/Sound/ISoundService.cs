@@ -8,5 +8,7 @@ namespace Code.Infrastructure.AudioVibrationFX.Services.Sound
         void CreateSoundsPool();
         void PlaySound(Sound2DType type);
         void PlaySound(Sound3DType type, Vector3 position);
+        void SetGlobalVolume(float volume);
+        float GetGlobalVolume();
     }
 }

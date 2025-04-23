@@ -60,5 +60,15 @@ namespace Code.Infrastructure.AudioVibrationFX.Services.Music
         }
 
         public void Stop() => _musicSource.Stop();
+        
+        public void SetVolume(float volume)
+        {
+            _musicSource.volume = Mathf.Clamp01(volume);
+        }
+
+        public float GetVolume()
+        {
+            return _musicSource.volume;
+        }
     }
 }

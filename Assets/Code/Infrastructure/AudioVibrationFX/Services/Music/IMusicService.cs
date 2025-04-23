@@ -8,5 +8,7 @@ namespace Code.Infrastructure.AudioVibrationFX.Services.Sound
         void Pause();
         void Resume();
         void Stop();
+        void SetVolume(float volume);
+        float GetVolume();
     }
 }
