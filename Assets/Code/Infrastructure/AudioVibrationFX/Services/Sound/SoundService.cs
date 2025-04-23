@@ -67,11 +67,11 @@ namespace Code.Infrastructure.AudioVibrationFX.Services.Sound
 
             source.clip = data.Clip;
             source.volume = data.Volume;
-            source.spatialBlend = data.SpatialBlend;
+            // source.spatialBlend = data.SpatialBlend;
             source.loop = data.Loop;
-            source.rolloffMode = data.RolloffMode;
-            source.minDistance = data.MinDistance;
-            source.maxDistance = data.MaxDistance;
+            // source.rolloffMode = data.RolloffMode;
+            // source.minDistance = data.MinDistance;
+            // source.maxDistance = data.MaxDistance;
 
             source.Play();
         }

@@ -1,5 +1,6 @@
 using System;
 using Code.Infrastructure.AudioVibrationFX.Services.Sound;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -13,15 +14,21 @@ namespace Code.Infrastructure.AudioVibrationFX.StaticData
         public AudioClip Clip;
 
         [Range(0f, 1f)] public float Volume = 1f;
-        [Range(0f, 1f)] public float SpatialBlend = 0f; // 0 = 2D, 1 = 3D
+
         public bool Loop = false;
         public bool PlayOnAwake = false;
+        
+        [HideInInspector] public Sound2DType Sound2DType = Sound2DType.Unknown;
+        [HideInInspector] public Sound3DType Sound3DType = Sound3DType.Unknown;
+    }
 
+    [Serializable]
+    public class Sound3DData : SoundData
+    {
+        [Range(0f, 1f)] public float SpatialBlend = 0f; // 0 = 2D, 1 = 3D
+        
         public AudioRolloffMode RolloffMode = AudioRolloffMode.Linear;
         public float MinDistance = 1f;
         public float MaxDistance = 500f;
-        
-        public Sound2DType Sound2DType = Sound2DType.Unknown;
-        public Sound3DType Sound3DType = Sound3DType.Unknown;
     }
 }

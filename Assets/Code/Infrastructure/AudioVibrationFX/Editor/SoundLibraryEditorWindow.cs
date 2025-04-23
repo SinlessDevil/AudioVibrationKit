@@ -49,21 +49,32 @@ namespace Code.Infrastructure.AudioVibrationFX.Editor
             ShowPaging = true,
             ListElementLabelName = "Name"
         )]
-        private List<SoundData> _sounds3DDataEditable;
+        private List<Sound3DData> _sounds3DDataEditable;
 
         [BoxGroup("Generation")]
         [Button("Generate Enums", ButtonSizes.Large)]
         [GUIColor(0f, 1f, 0f)]
         private void GenerateEnums()
         {
-            GenerateEnumFile("Sound2DType.cs", "Sound2DType", _sounds2DDataEditable, true);
-            GenerateEnumFile("Sound3DType.cs", "Sound3DType", _sounds3DDataEditable, false);
+            GenerateEnumFile("Sound2DType.cs", "Sound2DType", _sounds2DDataEditable);
+            GenerateEnumFile("Sound3DType.cs", "Sound3DType", _sounds3DDataEditable);
             SaveSoundsData();
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
         }
         
-        private void GenerateEnumFile(string fileName, string enumName, List<SoundData> soundList, bool is2D)
+        private void GenerateEnumFile(string fileName, string enumName, List<SoundData> soundList)
+        {
+            GenerateEnumFileBase(fileName, enumName, soundList, true);
+        }
+
+        private void GenerateEnumFile(string fileName, string enumName, List<Sound3DData> soundList)
+        {
+            List<SoundData> baseList = soundList.Cast<SoundData>().ToList();
+            GenerateEnumFileBase(fileName, enumName, baseList, false);
+        }
+        
+        private void GenerateEnumFileBase(string fileName, string enumName, List<SoundData> soundList, bool is2D)
         {
             var enumPath = $"Assets/Code/Infrastructure/AudioVibrationFX/Services/Sound/{fileName}";
 
@@ -139,7 +150,7 @@ namespace Code.Infrastructure.AudioVibrationFX.Editor
             {
                 Debug.LogError("❌ SoundsData asset not found at Resources/StaticData/Sounds/Sounds.asset");
                 _sounds2DDataEditable = new List<SoundData>();
-                _sounds3DDataEditable = new List<SoundData>();
+                _sounds3DDataEditable = new List<Sound3DData>();
             }
 
             _current2DTypes = GetEnumValues(typeof(Sound2DType));

@@ -8,6 +8,6 @@ namespace Code.Infrastructure.AudioVibrationFX.StaticData
     public class SoundsData : SerializedScriptableObject
     { 
         public List<SoundData> Sounds2DData = new();
-        public List<SoundData> Sounds3DData = new();
+        public List<Sound3DData> Sounds3DData = new();
     }
 }

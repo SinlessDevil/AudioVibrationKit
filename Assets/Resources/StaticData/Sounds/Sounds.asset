@@ -25,56 +25,44 @@ MonoBehaviour:
   - Name: Click
     Clip: {fileID: 8300000, guid: 8849396b31accba45a1f70ee86835367, type: 3}
     Volume: 1
-    SpatialBlend: 0
     Loop: 0
     PlayOnAwake: 0
-    RolloffMode: 1
-    MinDistance: 1
-    MaxDistance: 500
     Sound2DType: 0
     Sound3DType: -1
   - Name: Click_1
     Clip: {fileID: 8300000, guid: 8cf72f56ae4e19e49b4f564b06494484, type: 3}
     Volume: 1
-    SpatialBlend: 0
     Loop: 0
     PlayOnAwake: 0
-    RolloffMode: 1
-    MinDistance: 1
-    MaxDistance: 500
     Sound2DType: 1
     Sound3DType: -1
   - Name: Hide
     Clip: {fileID: 8300000, guid: a5a6937a4923c8e4fb28217c53e01541, type: 3}
     Volume: 1
-    SpatialBlend: 0
     Loop: 0
     PlayOnAwake: 0
-    RolloffMode: 1
-    MinDistance: 1
-    MaxDistance: 500
     Sound2DType: 2
     Sound3DType: -1
   Sounds3DData:
   - Name: Explosion
     Clip: {fileID: 8300000, guid: 62dcb3b80a17e934ebffa8aa9b313d89, type: 3}
     Volume: 1
-    SpatialBlend: 0
     Loop: 0
     PlayOnAwake: 0
+    Sound2DType: -1
+    Sound3DType: 0
+    SpatialBlend: 0
     RolloffMode: 1
     MinDistance: 1
     MaxDistance: 500
-    Sound2DType: -1
-    Sound3DType: 0
   - Name: Hit
     Clip: {fileID: 8300000, guid: fe4ff8cf031a06741909ee7633ca3556, type: 3}
     Volume: 1
-    SpatialBlend: 0
     Loop: 0
     PlayOnAwake: 0
+    Sound2DType: -1
+    Sound3DType: 1
+    SpatialBlend: 0
     RolloffMode: 1
     MinDistance: 1
     MaxDistance: 500
-    Sound2DType: -1
-    Sound3DType: 1
