@@ -1,6 +1,7 @@
 using Code.Infrastructure.AudioVibrationFX.Services.Music;
 using Code.Infrastructure.AudioVibrationFX.Services.Sound;
 using Code.Infrastructure.AudioVibrationFX.Services.StaticData;
+using Code.Infrastructure.AudioVibrationFX.Services.Vibration;
 using Code.Infrastructure.Factory;
 using Code.Infrastructure.Services.PersistenceProgress;
 using Code.Infrastructure.Services.SaveLoad;
@@ -45,12 +46,13 @@ namespace Code.Infrastructure
         {
             Container.Bind<IStaticDataService>().To<StaticDataService>().AsSingle();
             Container.Bind<IAudioVibrationStaticDataService>().To<AudioVibrationStaticDataService>().AsSingle();
-            Container.Bind<IMusicService>().To<MusicService>().AsSingle();
         }
         
         private void BindAudioVibration()
         {
             Container.Bind<ISoundService>().To<SoundService>().AsSingle();
+            Container.Bind<IMusicService>().To<MusicService>().AsSingle();
+            Container.Bind<IVibrationService>().To<VibrationService>().AsSingle();
         }
         
         public void Initialize()
