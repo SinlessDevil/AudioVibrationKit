@@ -1,3 +1,4 @@
+using Code.Infrastructure.AudioVibrationFX.Services.Music;
 using Code.Infrastructure.AudioVibrationFX.Services.Sound;
 using Code.Infrastructure.AudioVibrationFX.Services.StaticData;
 using Code.Infrastructure.Factory;
@@ -44,6 +45,7 @@ namespace Code.Infrastructure
         {
             Container.Bind<IStaticDataService>().To<StaticDataService>().AsSingle();
             Container.Bind<IAudioVibrationStaticDataService>().To<AudioVibrationStaticDataService>().AsSingle();
+            Container.Bind<IMusicService>().To<MusicService>().AsSingle();
         }
         
         private void BindAudioVibration()
@@ -58,6 +60,9 @@ namespace Code.Infrastructure
             
             Container.Resolve<ISoundService>().Cache2DSounds();
             Container.Resolve<ISoundService>().CreateSoundsPool();
+            
+            Container.Resolve<IMusicService>().CacheMusic();
+            Container.Resolve<IMusicService>().CreateMusicRoot();
             
             SceneManager.LoadScene(SceneName);
         }
