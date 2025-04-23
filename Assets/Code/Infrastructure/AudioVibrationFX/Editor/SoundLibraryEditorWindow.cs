@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Code.Infrastructure.AudioVibrationFX.Services.Music;
 using Code.Infrastructure.AudioVibrationFX.Services.Sound;
 using Code.Infrastructure.AudioVibrationFX.StaticData;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Code.Infrastructure.AudioVibrationFX.Editor
 {
@@ -82,24 +82,25 @@ namespace Code.Infrastructure.AudioVibrationFX.Editor
         
         private void GenerateSound2DEnumFile(string fileName, string enumName, List<SoundData> soundList)
         {
-            GenerateEnumFileBase(fileName, enumName, soundList, TypeSound.Sound2D);
+            var enumPath = $"Assets/Code/Infrastructure/AudioVibrationFX/Services/Sound/{fileName}";
+            GenerateEnumFileBase(enumPath, enumName, soundList, TypeSound.Sound2D);
         }
 
         private void GenerateSound3DEnumFile(string fileName, string enumName, List<Sound3DData> soundList)
         {
+            var enumPath = $"Assets/Code/Infrastructure/AudioVibrationFX/Services/Sound/{fileName}";
             List<SoundData> baseList = soundList.Cast<SoundData>().ToList();
-            GenerateEnumFileBase(fileName, enumName, baseList, TypeSound.Sound3D);
+            GenerateEnumFileBase(enumPath, enumName, baseList, TypeSound.Sound3D);
         }
         
         private void GenerateMusicEnumFile(string fileName, string enumName, List<SoundData> soundList)
         {
-            GenerateEnumFileBase(fileName, enumName, soundList, TypeSound.Music);
+            var enumPath = $"Assets/Code/Infrastructure/AudioVibrationFX/Services/Music/{fileName}";
+            GenerateEnumFileBase(enumPath, enumName, soundList, TypeSound.Music);
         }
         
-        private void GenerateEnumFileBase(string fileName, string enumName, List<SoundData> soundList, TypeSound typeSound)
+        private void GenerateEnumFileBase(string enumPath, string enumName, List<SoundData> soundList, TypeSound typeSound)
         {
-            var enumPath = $"Assets/Code/Infrastructure/AudioVibrationFX/Services/Sound/{fileName}";
-
             var names = soundList
                 .Where(s => !string.IsNullOrWhiteSpace(s.Name))
                 .Select(s => s.Name.Replace(" ", "_").Replace("-", "_").Replace(".", "_").Trim())

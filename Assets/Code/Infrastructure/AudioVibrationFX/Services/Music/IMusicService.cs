@@ -1,3 +1,5 @@
+using Code.Infrastructure.AudioVibrationFX.Services.Music;
+
 namespace Code.Infrastructure.AudioVibrationFX.Services.Sound
 {
     public interface IMusicService

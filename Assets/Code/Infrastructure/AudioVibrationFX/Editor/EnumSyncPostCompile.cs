@@ -11,17 +11,28 @@ namespace Code
         [DidReloadScripts]
         private static void OnScriptsReloaded()
         {
-            Debug.Log("🔄 Scripts recompiled. Trying to sync SoundTypes...");
+            Debug.Log("🔄 Scripts recompiled. Trying to sync enums...");
 
-            var window = Resources.FindObjectsOfTypeAll<Code.Infrastructure.AudioVibrationFX.Editor.SoundLibraryEditorWindow>().FirstOrDefault();
-            if (window != null)
+            var soundWindow = Resources.FindObjectsOfTypeAll<Code.Infrastructure.AudioVibrationFX.Editor.SoundLibraryEditorWindow>().FirstOrDefault();
+            if (soundWindow != null)
             {
-                window.UpdateSoundTypesAfterReload();
-                Debug.Log("✅ SoundTypes synced after compilation!");
+                soundWindow.UpdateSoundTypesAfterReload();
+                Debug.Log("✅ SoundTypes synced!");
             }
             else
             {
-                Debug.LogWarning("⚠️ SoundLibraryEditorWindow is not open, cannot sync sound types.");
+                Debug.LogWarning("⚠️ SoundLibraryEditorWindow not open. Skipping SoundTypes sync.");
+            }
+
+            var vibrationWindow = Resources.FindObjectsOfTypeAll<Code.Infrastructure.AudioVibrationFX.Editor.VibrationLibraryEditorWindow>().FirstOrDefault();
+            if (vibrationWindow != null)
+            {
+                vibrationWindow.UpdateVibrationTypesAfterReload();
+                Debug.Log("✅ VibrationTypes synced!");
+            }
+            else
+            {
+                Debug.LogWarning("⚠️ VibrationLibraryEditorWindow not open. Skipping VibrationTypes sync.");
             }
         }
     }

@@ -28,10 +28,6 @@ namespace Code.Infrastructure.AudioVibrationFX.Services.Sound
 
         public void Cache2DSounds()
         {
-            Debug.Log(_audioVibrationStaticDataService);
-            Debug.Log(_audioVibrationStaticDataService.SoundsData);
-            Debug.Log(_audioVibrationStaticDataService.SoundsData.Sounds2DData);
-
             foreach (var sound in _audioVibrationStaticDataService.SoundsData.Sounds2DData)
             {
                 if (!_cached2DSounds.ContainsKey(sound.Sound2DType))

@@ -1,6 +1,6 @@
 using System;
 
-namespace Code.Infrastructure.AudioVibrationFX.Services.Sound
+namespace Code.Infrastructure.AudioVibrationFX.Services.Music
 {
     [Serializable]
     public enum MusicType
