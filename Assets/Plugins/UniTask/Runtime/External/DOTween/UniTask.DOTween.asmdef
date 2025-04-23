@@ -1,12 +1,8 @@
 {
-    "name": "Game",
-    "rootNamespace": "",
+    "name": "UniTask.DOTween",
     "references": [
-        "Zenject",
-        "MoreMountains.NiceVibrations",
-        "MoreMountains.NiceVibrations.Haptics",
-        "MoreMountains.NiceVibrations.Rumble",
-        "UniTask"
+        "UniTask",
+        "DOTween.Modules"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -15,6 +11,12 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": [],
+    "versionDefines": [
+        {
+            "name": "com.demigiant.dotween",
+            "expression": "",
+            "define": "UNITASK_DOTWEEN_SUPPORT"
+        }
+    ],
     "noEngineReferences": false
 }

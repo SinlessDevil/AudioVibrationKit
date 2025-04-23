@@ -1,11 +1,6 @@
 {
-    "name": "Game",
-    "rootNamespace": "",
+    "name": "UniTask.Linq",
     "references": [
-        "Zenject",
-        "MoreMountains.NiceVibrations",
-        "MoreMountains.NiceVibrations.Haptics",
-        "MoreMountains.NiceVibrations.Rumble",
         "UniTask"
     ],
     "includePlatforms": [],

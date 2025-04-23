@@ -1,19 +1,16 @@
 {
-    "name": "Game",
-    "rootNamespace": "",
+    "name": "UniTask.Editor",
     "references": [
-        "Zenject",
-        "MoreMountains.NiceVibrations",
-        "MoreMountains.NiceVibrations.Haptics",
-        "MoreMountains.NiceVibrations.Rumble",
         "UniTask"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
-    "autoReferenced": true,
+    "autoReferenced": false,
     "defineConstraints": [],
     "versionDefines": [],
     "noEngineReferences": false
