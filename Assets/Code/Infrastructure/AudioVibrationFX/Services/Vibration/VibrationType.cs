@@ -6,7 +6,9 @@ namespace Code.Infrastructure.AudioVibrationFX.Services.Vibration
     public enum VibrationType
     {
         Unknown = -1,
-        Hight = 0,
-        Fauluer = 1,
+        SuccessPreset = 0,
+        ConstantBuzz = 1,
+        HitPulse = 2,
+        WaveVibration = 3,
     }
 }

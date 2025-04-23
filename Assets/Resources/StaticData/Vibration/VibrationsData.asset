@@ -13,9 +13,153 @@ MonoBehaviour:
   m_Name: VibrationsData
   m_EditorClassIdentifier: 
   Vibrations:
-  - Name: Hight
+  - Name: SuccessPreset
+    Mode: 0
     HapticType: 1
+    ConstantIntensity: 1
+    ConstantDuration: 0.3
+    EmphasisIntensity: 1
+    EmphasisSharpness: 1
+    Curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    CurveDuration: 1
     VibrationType: 0
-  - Name: Fauluer
-    HapticType: 3
+  - Name: ConstantBuzz
+    Mode: 1
+    HapticType: 0
+    ConstantIntensity: 0.8
+    ConstantDuration: 0.5
+    EmphasisIntensity: 1
+    EmphasisSharpness: 1
+    Curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    CurveDuration: 1
     VibrationType: 1
+  - Name: HitPulse
+    Mode: 2
+    HapticType: 0
+    ConstantIntensity: 1
+    ConstantDuration: 0.3
+    EmphasisIntensity: 1
+    EmphasisSharpness: 0.8
+    Curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    CurveDuration: 1
+    VibrationType: 2
+  - Name: WaveVibration
+    Mode: 3
+    HapticType: 0
+    ConstantIntensity: 1
+    ConstantDuration: 0.3
+    EmphasisIntensity: 1
+    EmphasisSharpness: 1
+    Curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.13131505
+        value: 0.61807287
+        inSlope: 1.268575
+        outSlope: 1.268575
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.06988677
+      - serializedVersion: 3
+        time: 0.6665177
+        value: 0.40463427
+        inSlope: 0.61928433
+        outSlope: 0.61928433
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    CurveDuration: 1
+    VibrationType: 3
