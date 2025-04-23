@@ -5,7 +5,9 @@ namespace Code.Infrastructure.AudioVibrationFX.Services.Sound
     [Serializable]
     public enum Sound2DType
     {
-        Click_1 = 0,
-        Click_2 = 1,
+        Unknown = -1,
+        Click = 0,
+        Click_1 = 1,
+        Hide = 2,
     }
 }

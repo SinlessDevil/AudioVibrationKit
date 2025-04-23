@@ -1,4 +1,5 @@
 using System;
+using Code.Infrastructure.AudioVibrationFX.Services.Sound;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -19,5 +20,8 @@ namespace Code.Infrastructure.AudioVibrationFX.StaticData
         public AudioRolloffMode RolloffMode = AudioRolloffMode.Linear;
         public float MinDistance = 1f;
         public float MaxDistance = 500f;
+        
+        public Sound2DType Sound2DType = Sound2DType.Unknown;
+        public Sound3DType Sound3DType = Sound3DType.Unknown;
     }
 }

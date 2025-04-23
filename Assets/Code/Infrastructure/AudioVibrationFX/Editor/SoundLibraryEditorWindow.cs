@@ -19,6 +19,8 @@ namespace Code.Infrastructure.AudioVibrationFX.Editor
             GetWindow<SoundLibraryEditorWindow>().Show();
         }
 
+        private SoundsData _soundsData;
+        
         [BoxGroup("Existing Enums"), ReadOnly]
         [MultiLineProperty(4)]
         [SerializeField]
@@ -49,23 +51,22 @@ namespace Code.Infrastructure.AudioVibrationFX.Editor
         )]
         private List<SoundData> _sounds3DDataEditable;
 
-        private SoundsData soundsData;
-
         [BoxGroup("Generation")]
         [Button("Generate Enums", ButtonSizes.Large)]
         [GUIColor(0f, 1f, 0f)]
         private void GenerateEnums()
         {
-            GenerateEnumFile("Sound2DType.cs", "Sound2DType", _sounds2DDataEditable);
-            GenerateEnumFile("Sound3DType.cs", "Sound3DType", _sounds3DDataEditable);
+            GenerateEnumFile("Sound2DType.cs", "Sound2DType", _sounds2DDataEditable, true);
+            GenerateEnumFile("Sound3DType.cs", "Sound3DType", _sounds3DDataEditable, false);
             SaveSoundsData();
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
         }
-
-        private void GenerateEnumFile(string fileName, string enumName, List<SoundData> soundList)
+        
+        private void GenerateEnumFile(string fileName, string enumName, List<SoundData> soundList, bool is2D)
         {
             var enumPath = $"Assets/Code/Infrastructure/AudioVibrationFX/Services/Sound/{fileName}";
+
             var names = soundList
                 .Where(s => !string.IsNullOrWhiteSpace(s.Name))
                 .Select(s => s.Name.Replace(" ", "_").Replace("-", "_").Replace(".", "_").Trim())
@@ -81,6 +82,7 @@ namespace Code.Infrastructure.AudioVibrationFX.Editor
                 writer.WriteLine("    [Serializable]");
                 writer.WriteLine($"    public enum {enumName}");
                 writer.WriteLine("    {");
+                writer.WriteLine("        Unknown = -1,");
 
                 for (int i = 0; i < names.Count; i++)
                 {
@@ -90,7 +92,35 @@ namespace Code.Infrastructure.AudioVibrationFX.Editor
                 writer.WriteLine("    }");
                 writer.WriteLine("}");
             }
-            Debug.Log($"{enumName} enum generated successfully with values!");
+            
+            for (int i = 0; i < soundList.Count; i++)
+            {
+                var sound = soundList[i];
+                var enumNameSanitized = sound.Name.Replace(" ", "_").Replace("-", "_").Replace(".", "_").Trim();
+
+                if (is2D && Enum.TryParse(enumNameSanitized, out Sound2DType sound2DType))
+                {
+                    sound.Sound2DType = sound2DType;
+                }
+                else if (!is2D && Enum.TryParse(enumNameSanitized, out Sound3DType sound3DType))
+                {
+                    sound.Sound3DType = sound3DType;
+                }
+            }
+
+            EditorUtility.SetDirty(_soundsData);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+
+            Debug.Log($"{enumName} enum generated and assigned successfully!");
+        }
+        
+        public void UpdateSoundTypesAfterReload()
+        {
+            UpdateSoundTypes();
+            SaveSoundsData();
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
         }
         
         protected override void OnEnable()
@@ -101,9 +131,9 @@ namespace Code.Infrastructure.AudioVibrationFX.Editor
 
             if (loaded != null)
             {
-                soundsData = loaded;
-                _sounds2DDataEditable = soundsData.Sounds2DData;
-                _sounds3DDataEditable = soundsData.Sounds3DData;
+                _soundsData = loaded;
+                _sounds2DDataEditable = _soundsData.Sounds2DData;
+                _sounds3DDataEditable = _soundsData.Sounds3DData;
             }
             else
             {
@@ -116,7 +146,6 @@ namespace Code.Infrastructure.AudioVibrationFX.Editor
             _current3DTypes = GetEnumValues(typeof(Sound3DType));
         }
 
-
         protected override void OnDisable()
         {
             base.OnDisable();
@@ -125,12 +154,33 @@ namespace Code.Infrastructure.AudioVibrationFX.Editor
         
         private void SaveSoundsData()
         {
-            if (soundsData != null)
+            if (_soundsData != null)
             {
-                EditorUtility.SetDirty(soundsData);
+                EditorUtility.SetDirty(_soundsData);
             }
         }
 
+        private void UpdateSoundTypes()
+        {
+            foreach (var sound in _sounds2DDataEditable)
+            {
+                if (Enum.TryParse(sound.Name, out Sound2DType parsedType))
+                    sound.Sound2DType = parsedType;
+                else
+                    sound.Sound2DType = Sound2DType.Unknown;
+            }
+
+            foreach (var sound in _sounds3DDataEditable)
+            {
+                if (Enum.TryParse(sound.Name, out Sound3DType parsedType))
+                    sound.Sound3DType = parsedType;
+                else
+                    sound.Sound3DType = Sound3DType.Unknown;
+            }
+
+            EditorUtility.SetDirty(_soundsData);
+            AssetDatabase.SaveAssets();
+        }
         
         private string GetEnumValues(Type enumType)
         {

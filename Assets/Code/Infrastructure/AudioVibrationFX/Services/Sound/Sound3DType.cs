@@ -5,7 +5,8 @@ namespace Code.Infrastructure.AudioVibrationFX.Services.Sound
     [Serializable]
     public enum Sound3DType
     {
-        Hit = 0,
-        Hit_1 = 1,
+        Unknown = -1,
+        Explosion = 0,
+        Hit = 1,
     }
 }
