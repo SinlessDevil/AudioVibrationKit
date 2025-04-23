@@ -21,8 +21,8 @@ namespace Code.Infrastructure
             BindFactory();
             BindSaveLoad();
             BindProgressData();
-            BindStaticData();
             BindAudioVibration();
+            BindStaticData();
         }
 
         private void BindFactory()

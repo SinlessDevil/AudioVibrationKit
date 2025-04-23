@@ -26,6 +26,10 @@ namespace Code.Infrastructure.AudioVibrationFX.Services.Sound
 
         public void Cache2DSounds()
         {
+            Debug.Log(_audioVibrationStaticDataService);
+            Debug.Log(_audioVibrationStaticDataService.SoundsData);
+            Debug.Log(_audioVibrationStaticDataService.SoundsData.Sounds2DData);
+
             foreach (var sound in _audioVibrationStaticDataService.SoundsData.Sounds2DData)
             {
                 if (!_cached2DSounds.ContainsKey(sound.Sound2DType))
@@ -49,13 +53,13 @@ namespace Code.Infrastructure.AudioVibrationFX.Services.Sound
                 Debug.LogWarning($"[SoundService] No sound data found for 2D sound type: {type}");
                 return;
             }
-
-            if (!TryGetAvailableSource(_2dAudioPool, out var source))
+            
+            if (!TryGetAvailableSource(_2dAudioPool, out var source, _poolParent2D, "Audio2D"))
             {
-                Debug.LogWarning("[SoundService] No available AudioSource in 2D pool");
+                Debug.LogWarning("[SoundService] Could not create new AudioSource in 2D pool");
                 return;
             }
-
+            
             SetupSource(source, data);
             source.Play();
         }
@@ -79,12 +83,28 @@ namespace Code.Infrastructure.AudioVibrationFX.Services.Sound
             }
         }
         
-        private bool TryGetAvailableSource(List<AudioSource> pool, out AudioSource source)
+        private bool TryGetAvailableSource(List<AudioSource> pool, out AudioSource source, Transform parent = null, 
+            string prefix = "Dynamic")
         {
             source = pool.Find(s => !s.isPlaying);
-            return source != null;
-        }
+    
+            if (source != null)
+                return true;
+            
+            int index = pool.Count;
+            var go = new GameObject($"{prefix}_{index}");
+            if (parent != null)
+                go.transform.SetParent(parent);
 
+            source = go.AddComponent<AudioSource>();
+            source.playOnAwake = false;
+            pool.Add(source);
+
+            Debug.LogWarning($"[SoundService] Pool expanded: {prefix}_{index}");
+
+            return true;
+        }
+        
         private void SetupSource(AudioSource source, SoundData data)
         {
             source.clip = data.Clip;

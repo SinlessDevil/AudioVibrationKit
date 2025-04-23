@@ -10,11 +10,8 @@ namespace Code.Infrastructure.AudioVibrationFX.StaticData
     public class SoundData
     {
         public string Name;
-            
         public AudioClip Clip;
-
         [Range(0f, 1f)] public float Volume = 1f;
-
         public bool Loop = false;
         public bool PlayOnAwake = false;
         
