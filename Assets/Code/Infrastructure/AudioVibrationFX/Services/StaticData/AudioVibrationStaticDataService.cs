@@ -14,7 +14,6 @@ namespace Code.Infrastructure.AudioVibrationFX.Services.StaticData
         public void LoadData()
         {
             _soundsData = Resources.Load<SoundsData>(SoundsDataPath);
-            Debug.Log(_soundsData);
         }
     }
 }

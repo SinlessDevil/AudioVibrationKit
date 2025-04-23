@@ -11,15 +11,18 @@ namespace Code.Infrastructure.Services.GameStater
         private readonly IPersistenceProgressService _progressService;
         private readonly IUIFactory _uiFactory;
         private readonly ISaveLoadService _saveLoadService;
+        private readonly IGameFactory _gameFactory;
         
         public GameStarter(
             IPersistenceProgressService progressService,
             IUIFactory uiFactory,
-            ISaveLoadService saveLoadService)
+            ISaveLoadService saveLoadService, 
+            IGameFactory gameFactory)
         {
             _progressService = progressService;
             _uiFactory = uiFactory;
             _saveLoadService = saveLoadService;
+            _gameFactory = gameFactory;
         }
 
         public void Initialize()
@@ -28,6 +31,7 @@ namespace Code.Infrastructure.Services.GameStater
             
             InitProgress();
             InitUI();
+            InitTests();
         }
         
         private void InitProgress()
@@ -39,6 +43,11 @@ namespace Code.Infrastructure.Services.GameStater
         {
             _uiFactory.CreateUIRoot();
             _uiFactory.CreateGameHud();
+        }
+        
+        private void InitTests()
+        {
+            _gameFactory.CreateTeleportingSoundEmitter();
         }
         
         private PlayerData LoadProgress()

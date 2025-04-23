@@ -28,6 +28,7 @@ namespace Code.Infrastructure
         private void BindFactory()
         {
             Container.BindInterfacesTo<UIFactory>().AsSingle();
+            Container.BindInterfacesTo<GameFactory>().AsSingle();
         }
         
         private void BindSaveLoad()

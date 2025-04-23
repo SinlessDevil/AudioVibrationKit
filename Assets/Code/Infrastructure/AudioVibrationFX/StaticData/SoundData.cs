@@ -1,8 +1,6 @@
 using System;
 using Code.Infrastructure.AudioVibrationFX.Services.Sound;
-using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Code.Infrastructure.AudioVibrationFX.StaticData
 {

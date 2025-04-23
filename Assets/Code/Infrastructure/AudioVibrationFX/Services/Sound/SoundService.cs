@@ -64,6 +64,27 @@ namespace Code.Infrastructure.AudioVibrationFX.Services.Sound
             source.Play();
         }
         
+        public void PlaySound(Sound3DType type, Vector3 position)
+        {
+            var soundDataList = _audioVibrationStaticDataService.SoundsData.Sounds3DData;
+            var data = soundDataList.Find(s => s.Sound3DType == type);
+
+            if (data == null)
+            {
+                Debug.LogWarning($"[SoundService] No sound data found for 3D sound type: {type}");
+                return;
+            }
+
+            if (!TryGetAvailableSource(_3dAudioPool, out var source, _poolParent3D, "Audio3D"))
+            {
+                Debug.LogWarning("[SoundService] Could not create new AudioSource in 3D pool");
+                return;
+            }
+
+            Setup3DSource(source, data, position);
+            source.Play();
+        }
+        
         private Transform CreatePoolParent(string name)
         {
             var parent = new GameObject(name).transform;
@@ -111,6 +132,18 @@ namespace Code.Infrastructure.AudioVibrationFX.Services.Sound
             source.volume = data.Volume;
             source.loop = data.Loop;
             source.playOnAwake = data.PlayOnAwake;
+        }
+        
+        private void Setup3DSource(AudioSource source, Sound3DData data, Vector3 position)
+        {
+            source.transform.position = position;
+    
+            SetupSource(source, data);
+
+            source.spatialBlend = data.SpatialBlend;
+            source.rolloffMode = data.RolloffMode;
+            source.minDistance = data.MinDistance;
+            source.maxDistance = data.MaxDistance;
         }
     }
 }

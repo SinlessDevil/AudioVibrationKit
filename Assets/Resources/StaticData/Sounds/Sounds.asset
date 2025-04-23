@@ -43,6 +43,13 @@ MonoBehaviour:
     PlayOnAwake: 0
     Sound2DType: 2
     Sound3DType: -1
+  - Name: Explosion2D
+    Clip: {fileID: 8300000, guid: 62dcb3b80a17e934ebffa8aa9b313d89, type: 3}
+    Volume: 1
+    Loop: 0
+    PlayOnAwake: 0
+    Sound2DType: 3
+    Sound3DType: -1
   Sounds3DData:
   - Name: Explosion
     Clip: {fileID: 8300000, guid: 62dcb3b80a17e934ebffa8aa9b313d89, type: 3}
@@ -54,7 +61,7 @@ MonoBehaviour:
     SpatialBlend: 0
     RolloffMode: 1
     MinDistance: 1
-    MaxDistance: 500
+    MaxDistance: 30
   - Name: Hit
     Clip: {fileID: 8300000, guid: fe4ff8cf031a06741909ee7633ca3556, type: 3}
     Volume: 1
@@ -65,4 +72,4 @@ MonoBehaviour:
     SpatialBlend: 0
     RolloffMode: 1
     MinDistance: 1
-    MaxDistance: 500
+    MaxDistance: 20
