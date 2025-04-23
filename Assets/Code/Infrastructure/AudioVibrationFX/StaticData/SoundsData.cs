@@ -9,5 +9,6 @@ namespace Code.Infrastructure.AudioVibrationFX.StaticData
     { 
         public List<SoundData> Sounds2DData = new();
         public List<Sound3DData> Sounds3DData = new();
+        public List<SoundData> MusicData = new();
     }
 }

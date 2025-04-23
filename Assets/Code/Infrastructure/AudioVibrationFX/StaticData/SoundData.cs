@@ -15,6 +15,7 @@ namespace Code.Infrastructure.AudioVibrationFX.StaticData
         
         [HideInInspector] public Sound2DType Sound2DType = Sound2DType.Unknown;
         [HideInInspector] public Sound3DType Sound3DType = Sound3DType.Unknown;
+        [HideInInspector] public MusicType MusicType = MusicType.Unknown;
     }
 
     [Serializable]
