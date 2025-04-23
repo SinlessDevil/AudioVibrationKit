@@ -66,6 +66,7 @@ namespace Code.Infrastructure.AudioVibrationFX.Services.Vibration
         private async UniTaskVoid PlayCurveAsync(AnimationCurve curve, float duration, CancellationToken token)
         {
             float time = 0f;
+            MMVibrationManager.ContinuousHaptic(0f, 1f, duration); 
 
             while (time < duration)
             {
@@ -73,13 +74,13 @@ namespace Code.Infrastructure.AudioVibrationFX.Services.Vibration
 
                 float t = time / duration;
                 float intensity = Mathf.Clamp01(curve.Evaluate(t));
-                MMVibrationManager.ContinuousHaptic(intensity, 1f, Time.deltaTime * 2f);
-
+                MMVibrationManager.UpdateContinuousHaptic(intensity, 1f);
                 time += Time.deltaTime;
                 await UniTask.Yield(PlayerLoopTiming.Update, token);
             }
 
             MMVibrationManager.StopAllHaptics();
         }
+
     }
 }

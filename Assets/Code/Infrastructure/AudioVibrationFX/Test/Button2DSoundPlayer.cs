@@ -1,4 +1,3 @@
-using System;
 using Code.Infrastructure.AudioVibrationFX.Services.Sound;
 using UnityEngine;
 using UnityEngine.UI;
@@ -35,12 +34,10 @@ namespace Code.Infrastructure.AudioVibrationFX.Test
 
         private void OnPlaySound() => _soundService.PlaySound(_soundType);
 
-#if UNITY_EDITOR
         private void UpdateTextInEditor()
         {
             if (!Application.isPlaying && _text != null)
                 _text.text = _soundType.ToString();
         }
-#endif
     }
 }
