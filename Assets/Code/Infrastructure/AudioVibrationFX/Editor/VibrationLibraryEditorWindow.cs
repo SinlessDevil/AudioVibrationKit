@@ -13,9 +13,10 @@ namespace Code.Infrastructure.AudioVibrationFX.Editor
 {
     public class VibrationLibraryEditorWindow : OdinEditorWindow
     {
-        private const string VIBRATION_DATA_PATH = "StaticData/Vibration/VibrationsData";
-        private const string ENUM_OUTPUT_PATH = "Assets/Code/Infrastructure/AudioVibrationFX/Services/Vibration/VibrationType.cs";
-
+        private const string VibrationDataPath = "StaticData/Vibration/VibrationsData";
+        private const string EnumOutputPath = "Assets/Code/Infrastructure/AudioVibrationFX/Services/Vibration/VibrationType.cs";
+        private const string NameSpaceVibration = "namespace Code.Infrastructure.AudioVibrationFX.Services.Vibration";
+        
         [MenuItem("Tools/AudioVibrationKit/Vibration Library")]
         private static void OpenWindow()
         {
@@ -39,6 +40,8 @@ namespace Code.Infrastructure.AudioVibrationFX.Editor
         )]
         private List<VibrationData> _editableVibrations;
 
+        private string _namespaceCodeInfrastructureAudiovibrationfxServicesVibration;
+
         [BoxGroup("Generation")]
         [Button("Generate Enum", ButtonSizes.Large)]
         [GUIColor(0f, 1f, 0f)]
@@ -50,7 +53,7 @@ namespace Code.Infrastructure.AudioVibrationFX.Editor
                 return;
             }
 
-            GenerateEnumFile(ENUM_OUTPUT_PATH, "VibrationType", _editableVibrations);
+            GenerateEnumFile(EnumOutputPath, "VibrationType", _editableVibrations);
             AssignEnumTypes(_editableVibrations);
             SaveData();
             AssetDatabase.SaveAssets();
@@ -62,7 +65,7 @@ namespace Code.Infrastructure.AudioVibrationFX.Editor
         {
             base.OnEnable();
 
-            _vibrationsData = Resources.Load<VibrationsData>(VIBRATION_DATA_PATH);
+            _vibrationsData = Resources.Load<VibrationsData>(VibrationDataPath);
 
             if (_vibrationsData != null)
             {
@@ -71,7 +74,7 @@ namespace Code.Infrastructure.AudioVibrationFX.Editor
             }
             else
             {
-                Debug.LogError($"❌ VibrationsData not found at Resources/{VIBRATION_DATA_PATH}.asset");
+                Debug.LogError($"VibrationsData not found at Resources/{VibrationDataPath}.asset");
                 _editableVibrations = new List<VibrationData>();
             }
         }
@@ -94,7 +97,7 @@ namespace Code.Infrastructure.AudioVibrationFX.Editor
             {
                 writer.WriteLine("using System;");
                 writer.WriteLine();
-                writer.WriteLine("namespace Code.Infrastructure.AudioVibrationFX.Services.Vibration");
+                writer.WriteLine($"{NameSpaceVibration}");
                 writer.WriteLine("{");
                 writer.WriteLine("    [Serializable]");
                 writer.WriteLine($"    public enum {enumName}");
@@ -116,10 +119,7 @@ namespace Code.Infrastructure.AudioVibrationFX.Editor
             foreach (var vibration in list)
             {
                 var sanitized = vibration.Name.Replace(" ", "_").Replace("-", "_").Replace(".", "_").Trim();
-                if (Enum.TryParse(sanitized, out VibrationType parsed))
-                    vibration.VibrationType = parsed;
-                else
-                    vibration.VibrationType = VibrationType.Unknown;
+                vibration.VibrationType = Enum.TryParse(sanitized, out VibrationType parsed) ? parsed : VibrationType.Unknown;
             }
         }
 
@@ -128,11 +128,7 @@ namespace Code.Infrastructure.AudioVibrationFX.Editor
             foreach (var vibration in _editableVibrations)
             {
                 var sanitized = vibration.Name.Replace(" ", "_").Replace("-", "_").Replace(".", "_").Trim();
-
-                if (Enum.TryParse(sanitized, out VibrationType parsed))
-                    vibration.VibrationType = parsed;
-                else
-                    vibration.VibrationType = VibrationType.Unknown;
+                vibration.VibrationType = Enum.TryParse(sanitized, out VibrationType parsed) ? parsed : VibrationType.Unknown;
             }
 
             SaveData();
@@ -143,9 +139,7 @@ namespace Code.Infrastructure.AudioVibrationFX.Editor
         private void SaveData()
         {
             if (_vibrationsData != null)
-            {
                 EditorUtility.SetDirty(_vibrationsData);
-            }
         }
 
         private void UpdateEnumPreview()

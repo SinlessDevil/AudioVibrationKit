@@ -14,6 +14,12 @@ namespace Code.Infrastructure.AudioVibrationFX.Editor
 {
     public class SoundLibraryEditorWindow : OdinEditorWindow
     {
+        private const string SoundPath = "Assets/Code/Infrastructure/AudioVibrationFX/Services/Sound/";
+        private const string MusicPath = "Assets/Code/Infrastructure/AudioVibrationFX/Services/Music/";
+        
+        private const string NameSpaceSound = "namespace Code.Infrastructure.AudioVibrationFX.Services.Sound";
+        private const string NameSpaceMusic = "namespace Code.Infrastructure.AudioVibrationFX.Services.Music";
+        
         [MenuItem("Tools/AudioVibrationKit/Sound Library")]
         private static void OpenWindow()
         {
@@ -66,7 +72,9 @@ namespace Code.Infrastructure.AudioVibrationFX.Editor
             ListElementLabelName = "Name"
         )]
         private List<SoundData> _musicDataEditable;
-        
+
+        private string _namespaceCodeInfrastructureAudiovibrationfxServicesSound;
+
         [BoxGroup("Generation")]
         [Button("Generate Enums", ButtonSizes.Large)]
         [GUIColor(0f, 1f, 0f)]
@@ -82,24 +90,24 @@ namespace Code.Infrastructure.AudioVibrationFX.Editor
         
         private void GenerateSound2DEnumFile(string fileName, string enumName, List<SoundData> soundList)
         {
-            var enumPath = $"Assets/Code/Infrastructure/AudioVibrationFX/Services/Sound/{fileName}";
-            GenerateEnumFileBase(enumPath, enumName, soundList, TypeSound.Sound2D);
+            var enumPath = $"{SoundPath}{fileName}";
+            GenerateEnumFileBase(enumPath, enumName, NameSpaceSound, soundList, TypeSound.Sound2D);
         }
 
         private void GenerateSound3DEnumFile(string fileName, string enumName, List<Sound3DData> soundList)
         {
-            var enumPath = $"Assets/Code/Infrastructure/AudioVibrationFX/Services/Sound/{fileName}";
+            var enumPath = $"{SoundPath}{fileName}";
             List<SoundData> baseList = soundList.Cast<SoundData>().ToList();
-            GenerateEnumFileBase(enumPath, enumName, baseList, TypeSound.Sound3D);
+            GenerateEnumFileBase(enumPath, enumName, NameSpaceSound ,baseList, TypeSound.Sound3D);
         }
         
         private void GenerateMusicEnumFile(string fileName, string enumName, List<SoundData> soundList)
         {
-            var enumPath = $"Assets/Code/Infrastructure/AudioVibrationFX/Services/Music/{fileName}";
-            GenerateEnumFileBase(enumPath, enumName, soundList, TypeSound.Music);
+            var enumPath = $"{MusicPath}{fileName}";
+            GenerateEnumFileBase(enumPath, enumName, NameSpaceMusic, soundList, TypeSound.Music);
         }
         
-        private void GenerateEnumFileBase(string enumPath, string enumName, List<SoundData> soundList, TypeSound typeSound)
+        private void GenerateEnumFileBase(string enumPath, string enumName, string nameSpace ,List<SoundData> soundList, TypeSound typeSound)
         {
             var names = soundList
                 .Where(s => !string.IsNullOrWhiteSpace(s.Name))
@@ -111,7 +119,7 @@ namespace Code.Infrastructure.AudioVibrationFX.Editor
             {
                 writer.WriteLine("using System;");
                 writer.WriteLine();
-                writer.WriteLine("namespace Code.Infrastructure.AudioVibrationFX.Services.Sound");
+                writer.WriteLine(nameSpace);
                 writer.WriteLine("{");
                 writer.WriteLine("    [Serializable]");
                 writer.WriteLine($"    public enum {enumName}");
@@ -177,7 +185,7 @@ namespace Code.Infrastructure.AudioVibrationFX.Editor
             }
             else
             {
-                Debug.LogError("❌ SoundsData asset not found at Resources/StaticData/Sounds/Sounds.asset");
+                Debug.LogError("SoundsData asset not found at Resources/StaticData/Sounds/Sounds.asset");
                 _sounds2DDataEditable = new List<SoundData>();
                 _sounds3DDataEditable = new List<Sound3DData>();
                 _musicDataEditable = new List<SoundData>();
@@ -197,36 +205,19 @@ namespace Code.Infrastructure.AudioVibrationFX.Editor
         private void SaveSoundsData()
         {
             if (_soundsData != null)
-            {
                 EditorUtility.SetDirty(_soundsData);
-            }
         }
 
         private void UpdateSoundTypes()
         {
             foreach (var sound in _sounds2DDataEditable)
-            {
-                if (Enum.TryParse(sound.Name, out Sound2DType parsedType))
-                    sound.Sound2DType = parsedType;
-                else
-                    sound.Sound2DType = Sound2DType.Unknown;
-            }
+                sound.Sound2DType = Enum.TryParse(sound.Name, out Sound2DType parsedType) ? parsedType : Sound2DType.Unknown;
 
             foreach (var sound in _sounds3DDataEditable)
-            {
-                if (Enum.TryParse(sound.Name, out Sound3DType parsedType))
-                    sound.Sound3DType = parsedType;
-                else
-                    sound.Sound3DType = Sound3DType.Unknown;
-            }
+                sound.Sound3DType = Enum.TryParse(sound.Name, out Sound3DType parsedType) ? parsedType : Sound3DType.Unknown;
 
             foreach (var music in _musicDataEditable)
-            {
-                if (Enum.TryParse(music.Name, out MusicType parsedType))
-                    music.MusicType = parsedType;
-                else
-                    music.MusicType = MusicType.Unknown;
-            }
+                music.MusicType = Enum.TryParse(music.Name, out MusicType parsedType) ? parsedType : MusicType.Unknown;
             
             EditorUtility.SetDirty(_soundsData);
             AssetDatabase.SaveAssets();
