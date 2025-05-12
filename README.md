@@ -18,17 +18,17 @@ A modular Unity toolkit for managing 2D/3D audio, music playback, and advanced h
 - 📱 **Android ready** — optimized for runtime builds
 
 ## 📸 Screenshots
-### 🎛 Sound & Music Editors
+🎛 Sound & Music Editors
 <p align="center">
   <img src="Images/SoundMusionTool_1.png" width="45%"/>
   <img src="Images/SoundMusionTool_2.png" width="45%"/>
 </p>
-### 📳 Vibration Editor
+📳 Vibration Editor
 <p align="center">
   <img src="Images/VibrationTool_2.png" width="45%"/>
   <img src="Images/VibrationTool_1.png" width="45%"/>
 </p>
-### 🧪 Test UI & Code
+🧪 Test UI & Code
 <p align="center">
   <img src="Images/TestUI.png" width="45%"/>
   <img src="Images/TestCode_1.png" width="45%"/>
